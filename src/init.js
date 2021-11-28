@@ -1,9 +1,11 @@
+import "dotenv/config";
 import "./db";//mongo 연결
 import "./models/Video";
+import "./models/User"
 import app from "./server"
 
 
-const PORT = 5000;
+const PORT = 4000;
 
 
 const handleListening = () =>{
