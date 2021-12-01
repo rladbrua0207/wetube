@@ -1,6 +1,6 @@
 import express from "express";
 import { watch, getEdit , postEdit, postUpload, getUpload, deleteVideo } from "../controllers/videoController";
-import { protectorMiddleware } from "../middlewares";
+import { protectorMiddleware, videoUpload } from "../middlewares";
 
 const videoRouter = express.Router();
 
@@ -10,6 +10,6 @@ videoRouter.route("/:id([a-f0-9]{24})/edit").all(protectorMiddleware).get(getEdi
 videoRouter.route("/:id([a-f0-9]{24})/delete").all(protectorMiddleware).get(deleteVideo);
 // videoRouter.get("/:id(\\d+)/edit", getEdit); 
 // videoRouter.post("/:id(\\d+)/edit", postEdit);
-videoRouter.route("/upload").all(protectorMiddleware).get(getUpload).post(postUpload);
+videoRouter.route("/upload").all(protectorMiddleware).get(getUpload).post(videoUpload.single("video"),postUpload);
 
 export default videoRouter;

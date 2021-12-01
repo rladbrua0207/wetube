@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     password: {type:String, required:false},
     name: {type:String, required: true},
     location: String,
+    videos: [{type: mongoose.Types.ObjectId, ref: "Video"}],
 })
 
 userSchema.pre("save", async function(){
@@ -18,6 +19,6 @@ userSchema.pre("save", async function(){
     //console.log(this.password);
 })
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;

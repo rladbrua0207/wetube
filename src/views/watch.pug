@@ -2,10 +2,16 @@ extends base.pug
 
 
 block content 
-
+    video(src="/" + video.fileUrl, controls)
     div 
-        p=video.description
+        p description: #{video.description}
+        p hashtags: #{video.hashtags}
         small=video.createdAt 
-    a(href=`${video.id}/edit`) Edit Video &rarr;
-    br
-    a(href=`${video.id}/delete`) Delete Video &rarr;
+        br
+        span uploaded by 
+        a(href=`/users/${video.owner.id}`) #{video.owner.name}
+
+    if(loggedInUser._id === video.owner.id)
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;
