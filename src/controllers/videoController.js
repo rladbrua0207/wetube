@@ -12,7 +12,7 @@ import Video from "../models/Video";
 */
 
 export const home = async (req, res) => {
-  const videos = await Video.find({}).sort({createdAt:"desc"});
+  const videos = await Video.find({}).sort({createdAt:"desc"}).populate("owner");
   res.render("home", { pageTitle: "Home", videos });
   // console.log("hello");
   //logger은 request가 완성되면 출력이 됨 hello 출력 후 render과정을 거쳐야
@@ -164,7 +164,7 @@ export const search = async (req, res) =>{
       title: {
         $regex: new RegExp(keyword, "i")
       },
-    })
+    }).populate("owner");
     console.log(videos);
   }
   return res.render("search",{pageTitle: "Search", videos});
