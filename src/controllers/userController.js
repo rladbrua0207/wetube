@@ -1,8 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
-import { json, response } from "express";
-import Video from "../models/Video";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "join" });
@@ -190,7 +188,7 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  console.log(file);
+  //console.log(file);
   //const id = req.session.user.id
   //const { username, email, name, location} = req.body;
 
@@ -200,13 +198,12 @@ export const postEdit = async (req, res) => {
     (findUsername !== null && findUsername._id.valueOf() !== _id) ||
     (findEmail !== null && findEmail._id.valueOf() !== _id)
   ) {
-    console.log(2);
+    console.log("123");
     return res.render("edit-Profile", {
       pageTitle: "Edit profile",
       errorMessage: "User is exists",
     });
   } //바꾸기
-
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
@@ -218,9 +215,9 @@ export const postEdit = async (req, res) => {
     },
     { new: true }
   );
-  console.log(1, updatedUser);
+  //console.log(1, updatedUser);
   req.session.user = updatedUser;
-
+  
   /*
   req.session.user ={
     ...req.session.user,
@@ -230,7 +227,7 @@ export const postEdit = async (req, res) => {
 0    location
   } */
 
-  return res.redirect("edit");
+  return res.redirect("/");
 };
 export const remove = (req, res) => res.send("Remove User");
 export const logout = (req, res) => {
@@ -284,7 +281,13 @@ export const postChangePassword = async (req, res) => {
 
 export const see = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path:"videos",
+    populate: {
+      path: "owner",
+      model: "User",
+    }
+  });
   console.log(user);
   if(!user){
     return res.status(404).render("404", {pageTitle: "User not found."});
