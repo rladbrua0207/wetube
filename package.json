@@ -7,10 +7,9 @@
         "url": "git+https://github.com/rladbrua0207/wetube.git"
     },
     "scripts": {
-        "dev:server": "nodemon",  
+        "dev:server": "nodemon",
         "dev:assets": "webpack --config webpack.config.js"
     },
-    
     "author": "",
     "license": "MIT",
     "bugs": {
@@ -27,7 +26,8 @@
         "morgan": "^1.10.0",
         "multer": "^1.4.3",
         "node-fetch": "^2.6.1",
-        "pug": "^3.0.2"
+        "pug": "^3.0.2",
+        "regenerator-runtime": "^0.13.9"
     },
     "devDependencies": {
         "@babel/core": "^7.16.0",
