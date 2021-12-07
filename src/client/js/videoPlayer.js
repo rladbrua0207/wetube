@@ -30,6 +30,9 @@ const handlePlayClick = (e) => {
 const handleMuteClick = () => {
   if (video.muted) {
     video.muted = false;
+    if(volumeValue === "0"){
+      volumeValue = 0.5;
+    }
   } else {
     video.muted = true;
   }
@@ -45,10 +48,15 @@ const handleVolumeChange = (event) => {
   } = event;
   if (video.muted) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
   }
   volumeValue = value;
   video.volume = value;
+  if(volumeValue ==="0"){
+    video.muted = true;
+  }
+  muteBtnIcon.classList = volumeValue ==="0"
+    ? "fas fa-volume-mute"
+    : "fas fa-volume-up";
 };
 
 const formatTime = (seconds) =>
