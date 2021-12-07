@@ -1,8 +1,9 @@
 import "dotenv/config";
 import "./db";//mongo 연결
 import "./models/Video";
-import "./models/User"
-import app from "./server"
+import "./models/User";
+import "./models/comment";
+import app from "./server";
 
 
 const PORT = 4000;

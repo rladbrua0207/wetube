@@ -31,7 +31,7 @@ const handleStart = () => {
         videoFile = URL.createObjectURL(e.data);
         video.srcObject = null;
         video.src = videoFile;
-
+        video.loop = true;
         video.play();
     }
     recorder.start();

@@ -13,7 +13,9 @@ const videoSchema = new mongoose.Schema({
     //required는 defalut값이 있으면 무쓸모긴함
   },
   owner: { type:mongoose.Schema.Types.ObjectId, required: true, ref:"User"},
+  comments: [{type:mongoose.Schema.Types.ObjectId, required:true, ref:"Comment"}],
 });
+
 //reference: mongoose에게 owner에 id를 저장하겠다고 알려주기
 videoSchema.static("formatHashtags", function (hashtags) {
   return hashtags

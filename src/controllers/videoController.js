@@ -1,5 +1,7 @@
+import { async } from "regenerator-runtime";
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/comment";
 
 
 /*
@@ -55,6 +57,7 @@ export const postEdit = async (req, res) => {
     return res.status(404).render("404", {pageTitle: "Video not found."})
   }
   if(String(video.owner) !== String(_id)){
+    req.flash("error", "You are not the owner of the video")
     return res.status(403).redirect("/");
   }
   console.log("id",id);
@@ -68,6 +71,7 @@ export const postEdit = async (req, res) => {
   //video.description = description;
   //video.hashtags =  hashtags.split(",").map((word) =>word.startsWith("#") ? word :`#${word}`);
   //await video.save();
+  req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
 };
 //변경사항을 저장해주는 녀석
@@ -179,4 +183,25 @@ export const registerView = async (req, res) => {
   video.meta.views = video.meta.views +1;
   await video.save();
   return res.sendStatus(200);
+}
+
+export const createComment = async(req, res)  => {
+
+  const {
+    params:{id},
+    session : {user:{_id}}
+  } = req;
+
+  const video = await Video.findById(id);
+  if(!video){
+    return res.sendStatus(404);
+  }
+  console.log(_id);
+  const {text} = req.body;
+  console.log(req.body);
+  // const comment = await Comment.create({
+  //   text,
+  //   video: video._id,
+  //   owner: _id,
+  // })
 }

@@ -2,6 +2,7 @@ import "./db";//mongo 연결
 import "./models/Video";
 import session from "express-session";
 import express from "express";//node_modules에서 express찾는거
+import flash from "express-flash";
 import morgan from "morgan";
 //const express = require("express");
 import MongoStore from "connect-mongo";
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 //     req.session.potato += 1;
 //     return res.send(`${req.session.id} \n ${req. session.potato}`);
 // });
+app.use(flash());
 app.use(localsMiddleware)
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
