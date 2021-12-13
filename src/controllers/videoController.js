@@ -61,7 +61,7 @@ export const postEdit = async (req, res) => {
     req.flash("error", "You are not the owner of the video");
     return res.status(403).redirect("/");
   }
-  console.log("id", id);
+  //console.log("id", id);
   await Video.findByIdAndUpdate(id, {
     title,
     description,
@@ -105,7 +105,7 @@ export const postUpload = async (req, res) => {
     //const dbVideo = await video.save(); --2
     return res.redirect("/");
   } catch (error) {
-    console.log(error, 1);
+    //console.log(error, 1);
     return res.render("upload", {
       pageTitle: "upload Video",
       errorMessage: error._message,
@@ -146,7 +146,7 @@ export const watch = async (req, res) => {
   if (video === null) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
-  console.log(video);
+  //console.log(video);
   //console.log(video.owner);
 
   return res.render("watch", { pageTitle: video.title, video });
@@ -162,7 +162,7 @@ export const search = async (req, res) => {
         $regex: new RegExp(keyword, "i"),
       },
     }).populate("owner");
-    console.log(videos);
+    //console.log(videos);
   }
   return res.render("search", { pageTitle: "Search", videos });
 };
@@ -192,17 +192,42 @@ export const createComment = async (req, res) => {
     return res.sendStatus(404);
   }
   const user = await User.findById(_id);
-  if(!user){
+  if (!user) {
     return res.sendStatus(404);
   }
-   const comment = await Comment.create({
-     text,
-     video: video._id,
-     owner: _id,
-   })
-   video.comments.push(comment._id);
-   user.comments.push(comment._id);
-   video.save();
-   user.save();
-   return res.sendStatus(201);
+  const comment = await Comment.create({
+    text,
+    video: video._id,
+    owner: _id,
+  });
+  video.comments.push(comment._id);
+  user.comments.push(comment._id);
+  video.save();
+  user.save();
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  const comment = await Comment.findByIdAndDelete(id);
+  if (!comment) {
+    req.flash("error", "Comment not found ");
+    return res.sendStatus(404);
+  }
+  //console.log("comment12313213", comment);
+
+  const userId = comment.owner;
+  const user = await User.findById(userId);
+  //console.log("user", user);
+
+  const videoId = comment.video;
+  const video = await Video.findById(videoId);
+  //console.log("video" + video);
+  const objId = comment._id;
+  //console.log(objId);
+  user.comments.splice(user.comments.indexOf(objId), 1);
+  video.comments.splice(video.comments.indexOf(objId), 1);
+  user.save();
+  video.save();
+  res.sendStatus(204);
 };

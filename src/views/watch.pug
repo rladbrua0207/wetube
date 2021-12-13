@@ -37,11 +37,10 @@ block content
     div.video__comments
         ul
             each comment in video.comments.reverse()
-                li.video__comment
+                li.video__comment(data-id=comment.id)
                     i.fas.fa-comment
-                    span  #{comment.text}
-                    span 
-                        img(src="https://img.icons8.com/fluency/32/000000/delete-sign.png", width="10px")
+                    span  #{comment.text} 
+                        img(src="https://img.icons8.com/fluency/32/000000/delete-sign.png", class ="delete_comment",width="10px")
 
 block scripts
     script(src="/static/js/videoPlayer.js") 
