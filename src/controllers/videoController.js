@@ -84,12 +84,13 @@ export const getUpload = (req, res) => {
 
 export const postUpload = async (req, res) => {
   const {
-    file: { path: fileUrl },
+    file: { location: fileUrl },
     body: { title, description, hashtags },
     session: {
       user: { _id },
     },
   } = req;
+  console.log(fileUrl);
   try {
     const newVideo = await Video.create({
       //const video = new Video --1
@@ -106,6 +107,7 @@ export const postUpload = async (req, res) => {
     return res.redirect("/");
   } catch (error) {
     //console.log(error, 1);
+    console.log(error);
     return res.render("upload", {
       pageTitle: "upload Video",
       errorMessage: error._message,

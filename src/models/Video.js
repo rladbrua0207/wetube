@@ -12,8 +12,10 @@ const videoSchema = new mongoose.Schema({
     rating: { type: Number, default: 0, required: true },
     //required는 defalut값이 있으면 무쓸모긴함
   },
-  owner: { type:mongoose.Schema.Types.ObjectId, required: true, ref:"User"},
-  comments: [{type:mongoose.Schema.Types.ObjectId, required:true, ref:"Comment"}],
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  comments: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
+  ],
 });
 
 //reference: mongoose에게 owner에 id를 저장하겠다고 알려주기
