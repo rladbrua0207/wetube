@@ -207,7 +207,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       username,
       email,
       name,
@@ -217,7 +217,7 @@ export const postEdit = async (req, res) => {
   );
   //console.log(1, updatedUser);
   req.session.user = updatedUser;
-  
+
   /*
   req.session.user ={
     ...req.session.user,
@@ -287,15 +287,15 @@ export const postChangePassword = async (req, res) => {
 export const see = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).populate({
-    path:"videos",
+    path: "videos",
     populate: {
       path: "owner",
       model: "User",
-    }
+    },
   });
   console.log(user);
-  if(!user){
-    return res.status(404).render("404", {pageTitle: "User not found."});
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
   }
   //const videos = await Video.find({owner: user._id});
   return res.render("users/profile", { pageTitle: user.name, user });
