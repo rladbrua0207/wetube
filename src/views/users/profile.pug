@@ -6,14 +6,8 @@ block content
     div.profile__data
         if(isHeroku)
             img(src=user.avatarUrl).avatar
-<<<<<<< HEAD
         else 
             img(src="/"+user.avatarUrl).avatar
-=======
-        else
-            img(src="/" + user.avatarUrl).avatar
-        
->>>>>>> 4d47a8157a7647eec8fdcc093f030d9014e8a9bc
         h3=user.name
     div.video-grid
         each video in user.videos
