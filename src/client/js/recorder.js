@@ -28,9 +28,10 @@ const handleDownload = async () => {
   actionBtn.innerText = "Trnadcoding...";
   actionBtn.disabled = true;
   const ffmpeg = createFFmpeg({
-    corePath: "/static/ffmpeg-core.js",
+    corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
     log: true,
   });
+  //corePath: "/static/ffmpeg-core.js",
   //corepath는 버전이 강의버전과 안맞아서 오류때문에
   //무슨일이 벌어지는지 콘솔에서 확인하기 위해  log:true
   await ffmpeg.load();
