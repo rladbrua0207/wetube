@@ -23,13 +23,14 @@ app.set("views", process.cwd() + "/src/views");
 //   express.static("assets"),
 //   express.static("node_modules/@ffmpeg/core/dist")
 // );//- @ffmpeg/core를 못찾아서 404에러날때
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://aws.amazon.com");
-  res.header("Cross-Origin-Resource-Policy", "cross-origin");
-  //res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  //res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
   next();
 });
+
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
