@@ -48,6 +48,7 @@ const handleDownload = async () => {
     "-ss",
     "00:00:01",
     "-frames:v",
+    "1",
     files.thumb
   );
   //-ss는 영상의 특정 시간대로 갈 수 있게 해줌,
