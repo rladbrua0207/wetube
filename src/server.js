@@ -15,6 +15,13 @@ import { localsMiddleware } from "./middlewares";
 const app = express();
 const logger = morgan("dev");
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+  next();
+});
+
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 //너의 express application가 form의 value들을 이해할수 있도록 하고 우리가 쓸 수 있는 멋진 자바스크립트 형식으로 변형시켜 준다
@@ -23,13 +30,6 @@ app.set("views", process.cwd() + "/src/views");
 //   express.static("assets"),
 //   express.static("node_modules/@ffmpeg/core/dist")
 // );//- @ffmpeg/core를 못찾아서 404에러날때
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-  next();
-});
 
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
