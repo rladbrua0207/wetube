@@ -18,6 +18,11 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 //너의 express application가 form의 value들을 이해할수 있도록 하고 우리가 쓸 수 있는 멋진 자바스크립트 형식으로 변형시켜 준다
+app.use(
+  "/static",
+  express.static("assets"),
+  express.static("node_modules/@ffmpeg/core/dist")
+);
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -1,5 +1,4 @@
-import { createFFmpeg, fetchFile, FS } from "@ffmpeg/ffmpeg";
-import { async } from "regenerator-runtime";
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
 const actionBtn = document.getElementById("actionBtn");
 const video = document.getElementById("preview");
@@ -29,7 +28,7 @@ const handleDownload = async () => {
   actionBtn.innerText = "Trnadcoding...";
   actionBtn.disabled = true;
   const ffmpeg = createFFmpeg({
-    corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
+    corePath: "/static/ffmpeg-core.js",
     log: true,
   });
   //corepath는 버전이 강의버전과 안맞아서 오류때문에
