@@ -25,6 +25,7 @@ app.set("views", process.cwd() + "/src/views");
 // );//- @ffmpeg/core를 못찾아서 404에러날때
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://aws.amazon.com");
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
   //res.header("Cross-Origin-Embedder-Policy", "require-corp");
   //res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
