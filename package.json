@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/rladbrua0207/wetube#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "aws-sdk": "^2.1046.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",
