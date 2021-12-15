@@ -84,18 +84,21 @@ export const getUpload = (req, res) => {
 
 export const postUpload = async (req, res) => {
   const {
-    file: { path: fileUrl },
+    files,
     body: { title, description, hashtags },
     session: {
       user: { _id },
     },
   } = req;
+  const isHeroku = process.env.NODE_ENV === "production";
+  console.log(files.thumb[0].path);
   try {
     const newVideo = await Video.create({
       //const video = new Video --1
       title,
       description,
-      fileUrl,
+      fileUrl: isHeroku ? files.video[0].location : files.video[0].path,
+      thumbUrl: isHeroku ? files.thumb[0].location : files.thumb[0].path,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
@@ -106,6 +109,7 @@ export const postUpload = async (req, res) => {
     return res.redirect("/");
   } catch (error) {
     //console.log(error, 1);
+    console.log(error);
     return res.render("upload", {
       pageTitle: "upload Video",
       errorMessage: error._message,

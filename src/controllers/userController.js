@@ -191,7 +191,7 @@ export const postEdit = async (req, res) => {
   //console.log(file);
   //const id = req.session.user.id
   //const { username, email, name, location} = req.body;
-
+  console.log(file ? file.location : avatarUrl);
   const findUsername = await User.findOne({ username });
   const findEmail = await User.findOne({ email });
   if (
@@ -204,10 +204,11 @@ export const postEdit = async (req, res) => {
       errorMessage: "User is exists",
     });
   } //바꾸기
+  const isHeroku = process.env.NODE_ENV === "production";
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.location : avatarUrl,
+      avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
       username,
       email,
       name,
@@ -216,6 +217,7 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   //console.log(1, updatedUser);
+  console.log(updatedUser);
   req.session.user = updatedUser;
 
   /*
