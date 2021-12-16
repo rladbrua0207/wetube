@@ -11,14 +11,16 @@ const addComment = (text, id) => {
   const icon = document.createElement("i");
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
+  const div = document.createElement("div");
   const xBtn = document.createElement("img");
   xBtn.src = "https://img.icons8.com/fluency/32/000000/delete-sign.png";
   xBtn.style.width = "10px";
   xBtn.id = "delete_comment";
   span.innerText = ` ${text} `;
-  span.appendChild(xBtn);
+  div.appendChild(xBtn);
   newComment.appendChild(icon);
   newComment.appendChild(span);
+  newComment.appendChild(div);
   videoComments.prepend(newComment);
   xBtn.addEventListener("click", handleDeleteComment);
 };

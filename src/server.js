@@ -35,6 +35,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
+app.use(localsMiddleware);
 
 app.use((req, res, next) => {
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
@@ -54,7 +55,6 @@ app.use((req, res, next) => {
 //     return res.send(`${req.session.id} \n ${req. session.potato}`);
 // });
 app.use(flash());
-app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 //app.use("//url이름", express.static("assets"));
