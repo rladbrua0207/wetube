@@ -41,7 +41,7 @@ block content
                             span  #{comment.text} 
                             div
                                 if(loggedInUser._id === String(comment.owner))
-                                    img(src="https://img.icons8.com/fluency/32/000000/delete-sign.png", class ="delete_comment",width="10px")
+                                    span.delete_comment ❌
         div.video_data_container
             div.video__data
                 div.video_hashtags=video.hashtags

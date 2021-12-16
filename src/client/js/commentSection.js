@@ -12,10 +12,10 @@ const addComment = (text, id) => {
   icon.className = "fas fa-comment";
   const span = document.createElement("span");
   const div = document.createElement("div");
-  const xBtn = document.createElement("img");
-  xBtn.src = "https://img.icons8.com/fluency/32/000000/delete-sign.png";
-  xBtn.style.width = "10px";
-  xBtn.id = "delete_comment";
+  const xBtn = document.createElement("span");
+
+  xBtn.classList.add("delete_comment");
+  xBtn.innerText = "❌";
   span.innerText = ` ${text} `;
   div.appendChild(xBtn);
   newComment.appendChild(icon);
