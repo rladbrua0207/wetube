@@ -37,7 +37,7 @@ block content
                 ul
                     each comment in video.comments.reverse()
                         li.video__comment(data-id=comment.id)
-                            span.comment_username #{comment.owner.username}'s comment
+                            span.comment_username #{comment.owner.name}'s comment
                             i.fas.fa-comment
                             span.comment_text  #{comment.text} 
                             div

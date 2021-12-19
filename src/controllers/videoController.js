@@ -217,9 +217,7 @@ export const createComment = async (req, res) => {
   video.save();
   user.save();
   req.session.user = user;
-  return res
-    .status(201)
-    .json({ newCommentId: comment._id, username: user.username });
+  return res.status(201).json({ newCommentId: comment._id, name: user.name });
 };
 
 export const deleteComment = async (req, res) => {

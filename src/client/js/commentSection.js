@@ -3,7 +3,7 @@ const { async } = require("regenerator-runtime");
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
-const addComment = (text, id, username) => {
+const addComment = (text, id, name) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.className = "video__comment";
@@ -16,7 +16,7 @@ const addComment = (text, id, username) => {
   const xBtn = document.createElement("span");
   const span2 = document.createElement("span");
   span2.classList.add("comment_username");
-  span2.innerText = `${username}'s comment`;
+  span2.innerText = `${name}'s comment`;
 
   xBtn.classList.add("delete_comment");
   xBtn.innerText = "❌";
@@ -53,7 +53,7 @@ const handleSubmit = async (event) => {
   const json = await response.json();
   console.log(1, json);
   if (response.status === 201) {
-    addComment(text, json.newCommentId, json.username);
+    addComment(text, json.newCommentId, json.name);
   }
 };
 
