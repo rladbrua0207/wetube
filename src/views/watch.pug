@@ -37,10 +37,11 @@ block content
                 ul
                     each comment in video.comments.reverse()
                         li.video__comment(data-id=comment.id)
+                            span.comment_username #{comment.owner.username}'s comment
                             i.fas.fa-comment
-                            span  #{comment.text} 
+                            span.comment_text  #{comment.text} 
                             div
-                                if(loggedInUser._id === String(comment.owner))
+                                if(loggedInUser._id === String(comment.owner._id))
                                     span.delete_comment ❌
         div.video_data_container
             div.video__data

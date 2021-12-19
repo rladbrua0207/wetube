@@ -74,9 +74,17 @@
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
+    .comment_username {
+      width: 100%;
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
     i {
     }
-    span {
+    .comment_text {
       width: 250px;
     }
     div {

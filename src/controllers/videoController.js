@@ -146,14 +146,21 @@ export const deleteVideo = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   //const video = await Video.exists({_id:id});
-  const video = await Video.findById(id).populate("owner").populate("comments");
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "owner",
+        model: "User",
+      },
+    });
   //const owner = await User.findById(video.owner);
 
   if (video === null) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
   //console.log(video);
-
   return res.render("watch", { pageTitle: video.title, video });
 };
 
@@ -210,7 +217,9 @@ export const createComment = async (req, res) => {
   video.save();
   user.save();
   req.session.user = user;
-  return res.status(201).json({ newCommentId: comment._id });
+  return res
+    .status(201)
+    .json({ newCommentId: comment._id, username: user.username });
 };
 
 export const deleteComment = async (req, res) => {
